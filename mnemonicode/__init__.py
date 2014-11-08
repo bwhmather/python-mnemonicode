@@ -25,13 +25,13 @@ def block_to_words(block):
         yield WORDLIST[i]
 
 
-def split_blocks(data):
-    """Split a byte string at four byte intervals
+def divide(data, size):
+    """Split an iterator at `size` item intervals
     """
-    for offset in range(0, len(data), 4):
-        yield data[offset:offset+4]
+    for offset in range(0, len(data), size):
+        yield data[offset:offset + size]
 
 
 def mnencode(data):
-    for block in split_blocks(data):
+    for block in divide(data, 4):
         yield from block_to_words(block)
