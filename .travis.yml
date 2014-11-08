@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.4"
+
+install:
+  - "pip install -e ."
+  - "pip install pyflakes"
+  - "pip install pep8"
+
+script:
+  - "python setup.py test"
+  - "pep8 mnemonicode setup.py"
+  - "pyflakes mnemonicode setup.py"
