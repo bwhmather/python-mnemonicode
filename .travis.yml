@@ -5,13 +5,17 @@ python:
 
 install:
   - "pip install -e ."
+  - "pip install coveralls"
   - "pip install pyflakes"
   - "pip install pep8"
 
 script:
-  - "python setup.py test"
+  - "coveralls run --source=mnemonicode setup.py test"
   - "pep8 mnemonicode setup.py"
   - "pyflakes mnemonicode setup.py"
+
+after_success:
+  - "coveralls"
 
 deploy:
   provider: pypi
