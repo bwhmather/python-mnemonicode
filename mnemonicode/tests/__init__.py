@@ -7,19 +7,19 @@ class TestMnemonicode(unittest.TestCase):
     def test_wordlist(self):
         self.assertEqual(len(mnemonicode.WORDLIST), 1633)
 
-    def test_split_blocks(self):
+    def test_divide(self):
         self.assertEqual(
-            list(mnemonicode.split_blocks(b'12345678')),
+            list(mnemonicode.divide(b'12345678', 4)),
             [b'1234', b'5678']
         )
 
         self.assertEqual(
-            list(mnemonicode.split_blocks(b'1234567')),
+            list(mnemonicode.divide(b'1234567', 4)),
             [b'1234', b'567']
         )
 
         self.assertEqual(
-            list(mnemonicode.split_blocks(b'12345')),
+            list(mnemonicode.divide(b'12345', 4)),
             [b'1234', b'5']
         )
 
