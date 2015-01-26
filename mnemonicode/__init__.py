@@ -37,24 +37,24 @@ def _block_to_indices(block):
     # menmonicode uses little-endian numbers
     num = _from_base(256, reversed(block))
 
-    base1626 = list(reversed(_to_base(1626, num)))
+    indices = list(reversed(_to_base(1626, num)))
 
-    # pad the word list to the correct size
+    # pad the list of indices to the correct size
     length = {
         1: 1,
         2: 2,
         3: 3,
         4: 3,
     }[len(block)]
-    base1626 += [0] * (length - len(base1626))
+    indices += [0] * (length - len(indices))
 
     # The third byte in a block slightly leaks into the third word.  A
     # different set of words is used for this case to distinguish it from the
     # four byte case
     if len(block) == 3:
-        base1626[2] += 1626
+        indices[2] += 1626
 
-    return base1626
+    return indices
 
 
 def _block_to_words(block):
