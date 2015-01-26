@@ -50,37 +50,37 @@ class TestMnemonicode(unittest.TestCase):
 
     def test_block_to_words(self):
         def test(string, words):
-            self.assertEqual(list(mnemonicode._block_to_words(string)), words)
+            self.assertEqual(tuple(mnemonicode._block_to_words(string)), words)
 
-        test(b"a", ["camera"])
-        test(b"ab", ["zero", "albert"])
-        test(b"abc", ["hazard", "velvet", "jet"])
-        test(b"abcd", ["bogart", "atlas", "safari"])
+        test(b"a", ("camera",))
+        test(b"ab", ("zero", "albert"))
+        test(b"abc", ("hazard", "velvet", "jet"))
+        test(b"abcd", ("bogart", "atlas", "safari"))
 
     def test_examples(self):
         def test(string, words):
             self.assertEqual(list(mnemonicode.mnencode(string)), words)
 
-        test(b"a", ["camera"])
-        test(b"ab", ["zero", "albert"])
-        test(b"abc", ["hazard", "velvet", "jet"])
+        test(b"a", [("camera",)])
+        test(b"ab", [("zero", "albert")])
+        test(b"abc", [("hazard", "velvet", "jet")])
         test(b"abcd", [
-            "bogart", "atlas", "safari"])
+            ("bogart", "atlas", "safari")])
         test(b"abcde", [
-            "bogart", "atlas", "safari",
-            "cannon",
+            ("bogart", "atlas", "safari"),
+            ("cannon",),
         ])
         test(b"abcdef", [
-            "bogart", "atlas", "safari",
-            "david", "albino",
+            ("bogart", "atlas", "safari"),
+            ("david", "albino"),
         ])
         test(b"abcdefg", [
-            "bogart", "atlas", "safari",
-            "emerald", "infant", "jet",
+            ("bogart", "atlas", "safari"),
+            ("emerald", "infant", "jet"),
         ])
         test(b"abcdefgh", [
-            "bogart", "atlas", "safari",
-            "airport", "cabaret", "shock",
+            ("bogart", "atlas", "safari"),
+            ("airport", "cabaret", "shock"),
         ])
 
 

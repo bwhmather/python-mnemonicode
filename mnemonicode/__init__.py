@@ -59,4 +59,4 @@ def _divide(data, size):
 
 def mnencode(data):
     for block in _divide(data, 4):
-        yield from _block_to_words(block)
+        yield tuple(_block_to_words(block))
