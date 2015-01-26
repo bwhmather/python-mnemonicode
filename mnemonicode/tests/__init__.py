@@ -56,6 +56,17 @@ class TestEncode(unittest.TestCase):
         test(b"abc", ("hazard", "velvet", "jet"))
         test(b"abcd", ("bogart", "atlas", "safari"))
 
+        # test padding
+        test(b'x\x00', ("cecilia", "academy"))
+        test(b'x\x00\x00', ("cecilia", "academy", "ego"))
+        test(b'x\x00\x00\x00', ("cecilia", "academy", "academy"))
+
+        # test all zeros
+        test(b'\x00', ("academy",))
+        test(b'\x00\x00', ("academy", "academy"))
+        test(b'\x00\x00\x00', ("academy", "academy", "ego"))
+        test(b'\x00\x00\x00\x00', ("academy", "academy", "academy"))
+
     def test_examples(self):
         def test(string, words):
             self.assertEqual(list(mnemonicode.mnencode(string)), words)
@@ -92,6 +103,17 @@ class TestDecode(unittest.TestCase):
         test(b"ab", ("zero", "albert"))
         test(b"abc", ("hazard", "velvet", "jet"))
         test(b"abcd", ("bogart", "atlas", "safari"))
+
+        # test padding
+        test(b'x\x00', ("cecilia", "academy"))
+        test(b'x\x00\x00', ("cecilia", "academy", "ego"))
+        test(b'x\x00\x00\x00', ("cecilia", "academy", "academy"))
+
+        # test all zeros
+        test(b'\x00', ("academy",))
+        test(b'\x00\x00', ("academy", "academy"))
+        test(b'\x00\x00\x00', ("academy", "academy", "ego"))
+        test(b'\x00\x00\x00\x00', ("academy", "academy", "academy"))
 
     def test_examples(self):
         def test(string, words):

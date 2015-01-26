@@ -31,15 +31,27 @@ def _from_base(base, num):
 
 
 def _block_to_indices(block):
+    if len(block) > 4:
+        raise ValueError("block too big")
+
     # menmonicode uses little-endian numbers
     num = _from_base(256, reversed(block))
 
     base1626 = list(reversed(_to_base(1626, num)))
 
+    # pad the word list to the correct size
+    length = {
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 3,
+    }[len(block)]
+    base1626 += [0] * (length - len(base1626))
+
     # The third byte in a block slightly leaks into the third word.  A
     # different set of words is used for this case to distinguish it from the
     # four byte case
-    if len(block) == 3 and len(base1626) == 3:
+    if len(block) == 3:
         base1626[2] += 1626
 
     return base1626
@@ -74,7 +86,7 @@ def _words_to_block(words):
     elif len(indices) in (1, 2):
         length = len(indices)
     else:
-        raise ValueError("invalid length")
+        raise ValueError("invalid length: %r" % indices)
 
     num = _from_base(1626, reversed(indices))
 
