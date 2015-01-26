@@ -45,6 +45,8 @@ class TestMnemonicode(unittest.TestCase):
             [b'1234', b'5']
         )
 
+
+class TestEncode(unittest.TestCase):
     def test_block_to_words(self):
         def test(string, words):
             self.assertEqual(tuple(mnemonicode._block_to_words(string)), words)
@@ -81,8 +83,47 @@ class TestMnemonicode(unittest.TestCase):
         ])
 
 
+class TestDecode(unittest.TestCase):
+    def test_words_to_block(self):
+        def test(string, words):
+            self.assertEqual(mnemonicode._words_to_block(words), string)
+
+        test(b"a", ("camera",))
+        test(b"ab", ("zero", "albert"))
+        test(b"abc", ("hazard", "velvet", "jet"))
+        test(b"abcd", ("bogart", "atlas", "safari"))
+
+    def test_examples(self):
+        def test(string, words):
+            self.assertEqual(mnemonicode.mndecode(words), string)
+
+        test(b"a", [("camera",)])
+        test(b"ab", [("zero", "albert")])
+        test(b"abc", [("hazard", "velvet", "jet")])
+        test(b"abcd", [
+            ("bogart", "atlas", "safari")])
+        test(b"abcde", [
+            ("bogart", "atlas", "safari"),
+            ("cannon",),
+        ])
+        test(b"abcdef", [
+            ("bogart", "atlas", "safari"),
+            ("david", "albino"),
+        ])
+        test(b"abcdefg", [
+            ("bogart", "atlas", "safari"),
+            ("emerald", "infant", "jet"),
+        ])
+        test(b"abcdefgh", [
+            ("bogart", "atlas", "safari"),
+            ("airport", "cabaret", "shock"),
+        ])
+
+
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestBaseConversion),
     loader.loadTestsFromTestCase(TestMnemonicode),
+    loader.loadTestsFromTestCase(TestEncode),
+    loader.loadTestsFromTestCase(TestDecode),
 ))

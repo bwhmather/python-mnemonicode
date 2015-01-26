@@ -1,4 +1,4 @@
-from mnemonicode._wordlist import index_to_word
+from mnemonicode._wordlist import index_to_word, word_to_index
 
 MN_BASE = 1626
 
@@ -60,3 +60,28 @@ def _divide(data, size):
 def mnencode(data):
     for block in _divide(data, 4):
         yield tuple(_block_to_words(block))
+
+
+def _words_to_block(words):
+    indices = list(word_to_index(word) for word in words)
+
+    if len(indices) == 3:
+        if indices[2] >= 1626:
+            length = 3
+            indices[2] -= 1626
+        else:
+            length = 4
+    elif len(indices) in (1, 2):
+        length = len(indices)
+    else:
+        raise ValueError("invalid length")
+
+    num = _from_base(1626, reversed(indices))
+
+    block = bytes(reversed(_to_base(256, num)))
+
+    return block.ljust(length, b'\x00')
+
+
+def mndecode(data):
+    return b''.join(_words_to_block(words) for words in data)
