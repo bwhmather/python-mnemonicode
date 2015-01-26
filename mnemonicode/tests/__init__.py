@@ -34,17 +34,17 @@ class TestMnemonicode(unittest.TestCase):
 
     def test_divide(self):
         self.assertEqual(
-            list(mnemonicode.divide(b'12345678', 4)),
+            list(mnemonicode._divide(b'12345678', 4)),
             [b'1234', b'5678']
         )
 
         self.assertEqual(
-            list(mnemonicode.divide(b'1234567', 4)),
+            list(mnemonicode._divide(b'1234567', 4)),
             [b'1234', b'567']
         )
 
         self.assertEqual(
-            list(mnemonicode.divide(b'12345', 4)),
+            list(mnemonicode._divide(b'12345', 4)),
             [b'1234', b'5']
         )
 

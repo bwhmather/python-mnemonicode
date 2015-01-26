@@ -50,7 +50,7 @@ def _block_to_words(block):
         yield WORDLIST[i]
 
 
-def divide(data, size):
+def _divide(data, size):
     """Split an iterator at `size` item intervals
     """
     for offset in range(0, len(data), size):
@@ -58,5 +58,5 @@ def divide(data, size):
 
 
 def mnencode(data):
-    for block in divide(data, 4):
+    for block in _divide(data, 4):
         yield from _block_to_words(block)
