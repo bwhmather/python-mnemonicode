@@ -29,9 +29,6 @@ class TestBaseConversion(unittest.TestCase):
 
 
 class TestMnemonicode(unittest.TestCase):
-    def test_wordlist(self):
-        self.assertEqual(len(mnemonicode.WORDLIST), 1633)
-
     def test_divide(self):
         self.assertEqual(
             list(mnemonicode._divide(b'12345678', 4)),

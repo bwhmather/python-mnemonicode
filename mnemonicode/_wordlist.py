@@ -21,7 +21,7 @@
 # THE SOFTWARE.
 # -----END ORIGINAL LICENSE-----
 
-WORDLIST = [
+_WORDLIST = [
     "academy",  "acrobat",  "active",   "actor",    "adam",     "admiral",
     "adrian",   "africa",   "agenda",   "agent",    "airline",  "airport",
     "aladdin",  "alarm",    "alaska",   "albert",   "albino",   "album",
@@ -296,3 +296,15 @@ WORDLIST = [
     "ego",      "fax",      "jet",      "job",      "rio",      "ski",
     "yes"
 ]
+
+_WORD_INDECES = {
+    word: index for index, word in enumerate(_WORDLIST)
+}
+
+
+def index_to_word(index):
+    return _WORDLIST[index]
+
+
+def word_to_index(word):
+    return _WORD_INDECES[word]

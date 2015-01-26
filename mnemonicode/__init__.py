@@ -1,4 +1,4 @@
-from mnemonicode._wordlist import WORDLIST
+from mnemonicode._wordlist import index_to_word
 
 MN_BASE = 1626
 
@@ -47,7 +47,7 @@ def _block_to_indeces(block):
 
 def _block_to_words(block):
     for i in _block_to_indeces(block):
-        yield WORDLIST[i]
+        yield index_to_word(i)
 
 
 def _divide(data, size):
