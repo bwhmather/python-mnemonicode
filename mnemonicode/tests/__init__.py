@@ -50,7 +50,7 @@ class TestMnemonicode(unittest.TestCase):
 
     def test_block_to_words(self):
         def test(string, words):
-            self.assertEqual(list(mnemonicode.block_to_words(string)), words)
+            self.assertEqual(list(mnemonicode._block_to_words(string)), words)
 
         test(b"a", ["camera"])
         test(b"ab", ["zero", "albert"])

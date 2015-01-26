@@ -30,25 +30,23 @@ def _from_base(base, num):
     return out
 
 
-def block_to_indeces(block):
-    x = sum(
-        block[i] * (2**(i*8))
-        for i in range(len(block))
-    )
+def _block_to_indeces(block):
+    # menmonicode uses little-endian numbers
+    num = _from_base(256, reversed(block))
 
-    yield x % MN_BASE
+    base1626 = list(reversed(_to_base(1626, num)))
 
-    if len(block) >= 2:
-        yield (x // MN_BASE) % MN_BASE
+    # The third byte in a block slightly leaks into the third word.  A
+    # different set of words is used for this case to distinguish it from the
+    # four byte case
+    if len(block) == 3 and len(base1626) == 3:
+        base1626[2] += 1626
 
-    if len(block) == 3:
-        yield (x // (MN_BASE**2)) % MN_BASE + MN_BASE
-    elif len(block) == 4:
-        yield (x // (MN_BASE**2)) % MN_BASE
+    return base1626
 
 
-def block_to_words(block):
-    for i in block_to_indeces(block):
+def _block_to_words(block):
+    for i in _block_to_indeces(block):
         yield WORDLIST[i]
 
 
@@ -61,4 +59,4 @@ def divide(data, size):
 
 def mnencode(data):
     for block in divide(data, 4):
-        yield from block_to_words(block)
+        yield from _block_to_words(block)
