@@ -70,6 +70,8 @@ def _divide(data, size):
 
 
 def mnencode(data):
+    """Encode a bytes object as an iterator of tuples of words
+    """
     for block in _divide(data, 4):
         yield tuple(_block_to_words(block))
 
@@ -99,4 +101,6 @@ def _words_to_block(words):
 
 
 def mndecode(data):
+    """Decode an iterator of tuples of words into a bytes object
+    """
     return b''.join(_words_to_block(words) for words in data)
