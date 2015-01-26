@@ -52,7 +52,7 @@ def _block_to_indices(block):
     # different set of words is used for this case to distinguish it from the
     # four byte case
     if len(block) == 3:
-        indices[2] += 1626
+        indices[-1] += 1626
 
     return indices
 
@@ -77,21 +77,24 @@ def mnencode(data):
 def _words_to_block(words):
     indices = list(word_to_index(word) for word in words)
 
-    if len(indices) == 3:
-        if indices[2] >= 1626:
-            length = 3
-            indices[2] -= 1626
-        else:
-            length = 4
-    elif len(indices) in (1, 2):
-        length = len(indices)
-    else:
-        raise ValueError("invalid length: %r" % indices)
+    # calculate length of block.
+    # both three byte and four byte blocks map to three words but can be
+    # distinguished as a different word list is used to encode the last word
+    # in the three byte case
+    length = {
+        1: 1,
+        2: 2,
+        3: 3 if indices[-1] >= 1626 else 4,
+    }[len(words)]
+
+    if length == 3:
+        indices[2] -= 1626
 
     num = _from_base(1626, reversed(indices))
 
     block = bytes(reversed(_to_base(256, num)))
 
+    # pad to correct length
     return block.ljust(length, b'\x00')
 
 
