@@ -3,6 +3,32 @@ from mnemonicode._wordlist import WORDLIST
 MN_BASE = 1626
 
 
+def _to_base(base, num):
+    """Encode a positive integer as a big-endian list of digits in the given
+    base
+    """
+    if num < 0:
+        raise ValueError("only works on positive integers")
+
+    out = []
+    while num > 0:
+        out.insert(0, num % base)
+        num //= base
+    return out
+
+def _from_base(base, num):
+    """Decode a big-endian iterable of digits in the given base to a single
+    positive integer
+    """
+    out = 0
+    for digit in num:
+        if digit >= base or digit < 0:
+            raise ValueError("invalid digit: %i" % digit)
+        out *= base
+        out += digit
+    return out
+
+
 def block_to_indeces(block):
     x = sum(
         block[i] * (2**(i*8))

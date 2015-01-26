@@ -1,6 +1,30 @@
 import unittest
 
 import mnemonicode
+from mnemonicode import _to_base, _from_base
+
+class TestBaseConversion(unittest.TestCase):
+    def test_encode_zero(self):
+        self.assertEqual([], _to_base(12, 0))
+
+    def test_encode_base_ten(self):
+        self.assertEqual([1, 2, 3, 4, 5, 6], _to_base(10, 123456))
+
+    def test_encode_negative(self):
+        self.assertRaises(ValueError, _to_base, 64, -10)
+
+    def test_decode_base_ten(self):
+        self.assertEqual(123456, _from_base(10, [1, 2, 3, 4, 5, 6]))
+
+    def test_decode_zero(self):
+        self.assertEqual(0, _from_base(16, []))
+
+    def test_decode_empty_digits(self):
+        self.assertEqual(456, _from_base(10, [0, 0, 0, 4, 5, 6]))
+
+    def test_decode_invalid_digits(self):
+        self.assertRaises(ValueError, _from_base, 8, [128])
+        self.assertRaises(ValueError, _from_base, 8, [8])
 
 
 class TestMnemonicode(unittest.TestCase):
@@ -61,5 +85,6 @@ class TestMnemonicode(unittest.TestCase):
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
+    loader.loadTestsFromTestCase(TestBaseConversion),
     loader.loadTestsFromTestCase(TestMnemonicode),
 ))
