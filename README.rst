@@ -5,7 +5,7 @@ Python Mnemonicode
 
 A python library for encoding binary data as a sequence of english words.
 
-Based on, and and compatible with http://web.archive.org/web/20101031205747/http://www.tothink.com/mnemonic/
+Based on, and compatible with http://web.archive.org/web/20101031205747/http://www.tothink.com/mnemonic/
 
 
 Installation
