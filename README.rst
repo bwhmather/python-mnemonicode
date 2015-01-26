@@ -10,6 +10,7 @@ Based on, and and compatible with http://web.archive.org/web/20101031205747/http
 
 Installation
 ------------
+
 Recommended method is to use the version from `pypi`_
 
 .. code::
@@ -19,14 +20,16 @@ Recommended method is to use the version from `pypi`_
 
 Links
 -----
-  - Source code: https://github.com/bwhmather/mnemonicode
-  - Issue tracker: https://github.com/bwhmather/mnemonicode/issues
-  - Continuous integration: https://travis-ci.org/bwhmather/mnemonicode
-  - PyPI: https://pypi.python.org/pypi/mnemonicode
+
+- Source code: https://github.com/bwhmather/mnemonicode
+- Issue tracker: https://github.com/bwhmather/mnemonicode/issues
+- Continuous integration: https://travis-ci.org/bwhmather/mnemonicode
+- PyPI: https://pypi.python.org/pypi/mnemonicode
 
 
 License
 -------
+
 The project is licensed under the BSD license.  See `LICENSE`_ for details.
 
 
