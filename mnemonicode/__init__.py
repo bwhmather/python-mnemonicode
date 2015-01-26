@@ -30,7 +30,7 @@ def _from_base(base, num):
     return out
 
 
-def _block_to_indeces(block):
+def _block_to_indices(block):
     # menmonicode uses little-endian numbers
     num = _from_base(256, reversed(block))
 
@@ -46,7 +46,7 @@ def _block_to_indeces(block):
 
 
 def _block_to_words(block):
-    for i in _block_to_indeces(block):
+    for i in _block_to_indices(block):
         yield index_to_word(i)
 
 
