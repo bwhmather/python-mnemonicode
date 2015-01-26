@@ -16,6 +16,7 @@ def _to_base(base, num):
         num //= base
     return out
 
+
 def _from_base(base, num):
     """Decode a big-endian iterable of digits in the given base to a single
     positive integer

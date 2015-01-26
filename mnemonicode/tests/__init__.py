@@ -3,6 +3,7 @@ import unittest
 import mnemonicode
 from mnemonicode import _to_base, _from_base
 
+
 class TestBaseConversion(unittest.TestCase):
     def test_encode_zero(self):
         self.assertEqual([], _to_base(12, 0))
