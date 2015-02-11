@@ -145,9 +145,7 @@ class TestDecode(unittest.TestCase):
         self.assertRaises(ValueError, mnemonicode.mndecode, [("jet",)])
 
     def test_unknown_word(self):
-        self.assertRaises(
-            ValueError,
-            mnemonicode.mndecode, [("supercalifragilisticexpialidocious",)]
+        self.assertRaises(ValueError, mnemonicode.mndecode, [("kazoo",)]
         )
 
     def test_missing_wrapper_tuple(self):
