@@ -141,6 +141,12 @@ class TestDecode(unittest.TestCase):
             ("airport", "cabaret", "shock"),
         ])
 
+    def test_decode_from_iterator(self):
+        self.assertEqual(b"abcdef", mnemonicode.mndecode(iter([
+            ("bogart", "atlas", "safari"),
+            ("david", "albino"),
+        ])))
+
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
