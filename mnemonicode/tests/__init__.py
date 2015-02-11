@@ -142,10 +142,7 @@ class TestDecode(unittest.TestCase):
         ])
 
     def test_early_three_byte_word(self):
-        self.assertRaises(
-            ValueError,
-            mnemonicode.mndecode, [("jet",)]
-        )
+        self.assertRaises(ValueError, mnemonicode.mndecode, [("jet",)])
 
     def test_unknown_word(self):
         self.assertRaises(
@@ -154,16 +151,10 @@ class TestDecode(unittest.TestCase):
         )
 
     def test_missing_wrapper_tuple(self):
-        self.assertRaises(
-            TypeError,
-            mnemonicode.mndecode, ["academy"]
-        )
+        self.assertRaises(TypeError, mnemonicode.mndecode, ["academy"])
 
     def test_empty_word_group(self):
-        self.assertRaises(
-            ValueError,
-            mnemonicode.mndecode, [tuple()]
-        )
+        self.assertRaises(ValueError, mnemonicode.mndecode, [tuple()])
 
     def testing_really_long_word_group(self):
         self.assertRaises(
