@@ -141,6 +141,12 @@ class TestDecode(unittest.TestCase):
             ("airport", "cabaret", "shock"),
         ])
 
+    def test_early_three_byte_word(self):
+        self.assertRaises(
+            ValueError,
+            mnemonicode.mndecode, [("jet",)]
+        )
+
     def test_unknown_word(self):
         self.assertRaises(
             ValueError,
