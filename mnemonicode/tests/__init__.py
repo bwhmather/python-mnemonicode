@@ -141,6 +141,12 @@ class TestDecode(unittest.TestCase):
             ("airport", "cabaret", "shock"),
         ])
 
+    def test_unknown_word(self):
+        self.assertRaises(
+            ValueError,
+            mnemonicode.mndecode, [("supercalifragilisticexpialidocious",)]
+        )
+
     def test_decode_from_iterator(self):
         self.assertEqual(b"abcdef", mnemonicode.mndecode(iter([
             ("bogart", "atlas", "safari"),

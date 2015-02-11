@@ -77,7 +77,10 @@ def mnencode(data):
 
 
 def _words_to_block(words):
-    indices = list(word_to_index(word) for word in words)
+    try:
+        indices = list(word_to_index(word) for word in words)
+    except KeyError as e:
+        raise ValueError("word not recognized") from e
 
     # calculate length of block.
     # both three byte and four byte blocks map to three words but can be
