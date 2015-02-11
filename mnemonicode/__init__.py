@@ -77,7 +77,19 @@ def mnencode(data):
 
 
 def _words_to_block(words):
-    indices = list(word_to_index(word) for word in words)
+    if not isinstance(words, tuple):
+        raise TypeError("expected tuple of words")
+
+    if len(words) == 0:
+        raise ValueError("no words in block")
+
+    if len(words) > 3:
+        raise ValueError("too many words in block")
+
+    try:
+        indices = list(word_to_index(word) for word in words)
+    except KeyError as e:
+        raise ValueError("word not recognized") from e
 
     # calculate length of block.
     # both three byte and four byte blocks map to three words but can be
@@ -91,6 +103,14 @@ def _words_to_block(words):
 
     if length == 3:
         indices[2] -= 1626
+
+    # check that words in the second word list don't appear anywhere else in
+    # the block
+    for index in indices:
+        if index > 1626:
+            raise ValueError(
+                "unexpected three byte word: %s" % index_to_word(index)
+            )
 
     num = _from_base(1626, reversed(indices))
 

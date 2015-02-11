@@ -141,6 +141,31 @@ class TestDecode(unittest.TestCase):
             ("airport", "cabaret", "shock"),
         ])
 
+    def test_early_three_byte_word(self):
+        self.assertRaises(ValueError, mnemonicode.mndecode, [("jet",)])
+
+    def test_unknown_word(self):
+        self.assertRaises(ValueError, mnemonicode.mndecode, [("kazoo",)])
+
+    def test_missing_wrapper_tuple(self):
+        self.assertRaises(TypeError, mnemonicode.mndecode, ["academy"])
+
+    def test_empty_word_group(self):
+        self.assertRaises(ValueError, mnemonicode.mndecode, [tuple()])
+
+    def testing_really_long_word_group(self):
+        self.assertRaises(
+            ValueError,
+            mnemonicode.mndecode,
+            [("academy", "academy", "academy", "academy")]
+        )
+
+    def test_decode_from_iterator(self):
+        self.assertEqual(b"abcdef", mnemonicode.mndecode(iter([
+            ("bogart", "atlas", "safari"),
+            ("david", "albino"),
+        ])))
+
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
