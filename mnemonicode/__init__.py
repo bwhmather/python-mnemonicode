@@ -77,6 +77,9 @@ def mnencode(data):
 
 
 def _words_to_block(words):
+    if not isinstance(words, tuple):
+        raise TypeError("expected tuple of words")
+
     try:
         indices = list(word_to_index(word) for word in words)
     except KeyError as e:

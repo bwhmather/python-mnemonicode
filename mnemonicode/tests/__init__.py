@@ -147,6 +147,12 @@ class TestDecode(unittest.TestCase):
             mnemonicode.mndecode, [("supercalifragilisticexpialidocious",)]
         )
 
+    def test_missing_wrapper_tuple(self):
+        self.assertRaises(
+            TypeError,
+            mnemonicode.mndecode, ["academy"]
+        )
+
     def test_decode_from_iterator(self):
         self.assertEqual(b"abcdef", mnemonicode.mndecode(iter([
             ("bogart", "atlas", "safari"),
