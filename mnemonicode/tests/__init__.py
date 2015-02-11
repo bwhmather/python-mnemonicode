@@ -153,6 +153,19 @@ class TestDecode(unittest.TestCase):
             mnemonicode.mndecode, ["academy"]
         )
 
+    def test_empty_word_group(self):
+        self.assertRaises(
+            ValueError,
+            mnemonicode.mndecode, [tuple()]
+        )
+
+    def testing_really_long_word_group(self):
+        self.assertRaises(
+            ValueError,
+            mnemonicode.mndecode,
+            [("academy", "academy", "academy", "academy")]
+        )
+
     def test_decode_from_iterator(self):
         self.assertEqual(b"abcdef", mnemonicode.mndecode(iter([
             ("bogart", "atlas", "safari"),

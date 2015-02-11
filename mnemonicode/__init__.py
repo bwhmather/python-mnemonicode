@@ -80,6 +80,12 @@ def _words_to_block(words):
     if not isinstance(words, tuple):
         raise TypeError("expected tuple of words")
 
+    if len(words) == 0:
+        raise ValueError("no words in block")
+
+    if len(words) > 3:
+        raise ValueError("too many words in block")
+
     try:
         indices = list(word_to_index(word) for word in words)
     except KeyError as e:
