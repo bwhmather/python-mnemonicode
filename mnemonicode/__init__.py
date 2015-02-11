@@ -1,7 +1,5 @@
 from mnemonicode._wordlist import index_to_word, word_to_index
 
-MN_BASE = 1626
-
 
 def _to_base(base, num):
     """Encode a positive integer as a big-endian list of digits in the given
