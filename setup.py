@@ -26,5 +26,11 @@ setup(
     package_data={
         '': ['*.*'],
     },
+    entry_points={
+        'console_scripts': [
+            'mnencode=mnemonicode:mnencode_main',
+            'mndecode=mnemonicode:mndecode_main',
+        ],
+    },
     test_suite='mnemonicode.tests.suite',
 )

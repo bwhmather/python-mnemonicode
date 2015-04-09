@@ -1,3 +1,6 @@
+import sys
+import argparse
+
 from mnemonicode._wordlist import index_to_word, word_to_index
 
 
@@ -140,3 +143,33 @@ def mnparse(string, word_separator="-", group_separator="--"):
         tuple(group.split(word_separator))
         for group in string.split(group_separator)
     )
+
+
+def mnencode_main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'infile', nargs='?',
+        type=argparse.FileType('rb'), default=sys.stdin.buffer
+    )
+    parser.add_argument(
+        'outfile', nargs='?',
+        type=argparse.FileType('w'), default=sys.stdout
+    )
+    args = parser.parse_args()
+
+    args.outfile.write(mnformat(args.infile.read()))
+
+
+def mndecode_main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'infile', nargs='?',
+        type=argparse.FileType('r'), default=sys.stdin
+    )
+    parser.add_argument(
+        'outfile', nargs='?',
+        type=argparse.FileType('wb'), default=sys.stdout.buffer
+    )
+    args = parser.parse_args()
+
+    args.outfile.write(mnparse(args.infile.read()))
