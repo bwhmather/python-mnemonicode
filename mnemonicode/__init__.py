@@ -74,6 +74,12 @@ def mnencode(data):
         yield tuple(_block_to_words(block))
 
 
+def mnformat(data, word_separator="-", group_separator="--"):
+    return group_separator.join(
+        word_separator.join(group) for group in mnencode(data)
+    )
+
+
 def _words_to_block(words):
     if not isinstance(words, tuple):
         raise TypeError("expected tuple of words")

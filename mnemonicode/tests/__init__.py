@@ -100,6 +100,17 @@ class TestEncode(unittest.TestCase):
         ])
 
 
+class TestFormat(unittest.TestCase):
+    def test_examples(self):
+        def test(data, string):
+            self.assertEqual(mnemonicode.mnformat(data), string)
+
+        test(b"", "")
+        test(b"a", "camera")
+        test(b"ab", "zero-albert")
+        test(b"abcde", "bogart-atlas-safari--cannon")
+
+
 class TestDecode(unittest.TestCase):
     def test_words_to_block(self):
         def test(string, words):
@@ -184,5 +195,6 @@ suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestBaseConversion),
     loader.loadTestsFromTestCase(TestMnemonicode),
     loader.loadTestsFromTestCase(TestEncode),
+    loader.loadTestsFromTestCase(TestFormat),
     loader.loadTestsFromTestCase(TestDecode),
 ))
