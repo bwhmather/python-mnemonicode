@@ -67,6 +67,12 @@ class TestEncode(unittest.TestCase):
         test(b'\x00\x00\x00', ("academy", "academy", "ego"))
         test(b'\x00\x00\x00\x00', ("academy", "academy", "academy"))
 
+        # test all ones
+        test(b'\xff', ("exact",))
+        test(b'\xff\xff', ("nevada", "archive"))
+        test(b'\xff\xff\xff', ("claudia", "photo", "yes"))
+        test(b'\xff\xff\xff\xff', ("natural", "analyze", "verbal"))
+
     def test_examples(self):
         def test(string, words):
             self.assertEqual(list(mnemonicode.mnencode(string)), words)
@@ -94,6 +100,17 @@ class TestEncode(unittest.TestCase):
         ])
 
 
+class TestFormat(unittest.TestCase):
+    def test_examples(self):
+        def test(data, string):
+            self.assertEqual(mnemonicode.mnformat(data), string)
+
+        test(b"", "")
+        test(b"a", "camera")
+        test(b"ab", "zero-albert")
+        test(b"abcde", "bogart-atlas-safari--cannon")
+
+
 class TestDecode(unittest.TestCase):
     def test_words_to_block(self):
         def test(string, words):
@@ -114,6 +131,12 @@ class TestDecode(unittest.TestCase):
         test(b'\x00\x00', ("academy", "academy"))
         test(b'\x00\x00\x00', ("academy", "academy", "ego"))
         test(b'\x00\x00\x00\x00', ("academy", "academy", "academy"))
+
+        # test all ones
+        test(b'\xff', ("exact",))
+        test(b'\xff\xff', ("nevada", "archive"))
+        test(b'\xff\xff\xff', ("claudia", "photo", "yes"))
+        test(b'\xff\xff\xff\xff', ("natural", "analyze", "verbal"))
 
     def test_examples(self):
         def test(string, words):
@@ -167,10 +190,23 @@ class TestDecode(unittest.TestCase):
         ])))
 
 
+class TestParse(unittest.TestCase):
+    def test_examples(self):
+        def test(data, string):
+            self.assertEqual(data, mnemonicode.mnparse(string))
+
+        test(b"", "")
+        test(b"a", "camera")
+        test(b"ab", "zero-albert")
+        test(b"abcde", "bogart-atlas-safari--cannon")
+
+
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestBaseConversion),
     loader.loadTestsFromTestCase(TestMnemonicode),
     loader.loadTestsFromTestCase(TestEncode),
+    loader.loadTestsFromTestCase(TestFormat),
     loader.loadTestsFromTestCase(TestDecode),
+    loader.loadTestsFromTestCase(TestParse),
 ))

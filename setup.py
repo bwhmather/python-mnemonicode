@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name='mnemonicode',
     url='https://github.com/bwhmather/mnemonicode',
-    version='1.1.0',
+    version='1.2.0',
     author='Ben Mather',
     author_email='bwhmather@bwhmather.com',
     maintainer='',
@@ -26,6 +26,11 @@ setup(
     package_data={
         '': ['*.*'],
     },
-    zip_safe=False,
+    entry_points={
+        'console_scripts': [
+            'mnencode=mnemonicode:mnencode_main',
+            'mndecode=mnemonicode:mndecode_main',
+        ],
+    },
     test_suite='mnemonicode.tests.suite',
 )
