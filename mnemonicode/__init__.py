@@ -135,6 +135,7 @@ def mnparse(string, word_separator="-", group_separator="--"):
     # empty iterator so we need to special case it
     if len(string) == 0:
         return b''
+
     return mndecode(
         tuple(group.split(word_separator))
         for group in string.split(group_separator)
