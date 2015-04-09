@@ -26,6 +26,5 @@ setup(
     package_data={
         '': ['*.*'],
     },
-    zip_safe=False,
     test_suite='mnemonicode.tests.suite',
 )
