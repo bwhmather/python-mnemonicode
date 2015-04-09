@@ -190,6 +190,17 @@ class TestDecode(unittest.TestCase):
         ])))
 
 
+class TestParse(unittest.TestCase):
+    def test_examples(self):
+        def test(data, string):
+            self.assertEqual(data, mnemonicode.mnparse(string))
+
+        test(b"", "")
+        test(b"a", "camera")
+        test(b"ab", "zero-albert")
+        test(b"abcde", "bogart-atlas-safari--cannon")
+
+
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestBaseConversion),
@@ -197,4 +208,5 @@ suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestEncode),
     loader.loadTestsFromTestCase(TestFormat),
     loader.loadTestsFromTestCase(TestDecode),
+    loader.loadTestsFromTestCase(TestParse),
 ))

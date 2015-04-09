@@ -128,3 +128,14 @@ def mndecode(data):
     """Decode an iterator of tuples of words into a bytes object
     """
     return b''.join(_words_to_block(words) for words in data)
+
+
+def mnparse(string, word_separator="-", group_separator="--"):
+    # empty string is a valid input but ``"".split(...)`` does not return an
+    # empty iterator so we need to special case it
+    if len(string) == 0:
+        return b''
+    return mndecode(
+        tuple(group.split(word_separator))
+        for group in string.split(group_separator)
+    )
