@@ -28,8 +28,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'mnencode=mnemonicode:mnencode_main',
-            'mndecode=mnemonicode:mndecode_main',
+            'mnencode=mnemonicode:_mnencode_main',
+            'mndecode=mnemonicode:_mndecode_main',
         ],
     },
     test_suite='mnemonicode.tests.suite',

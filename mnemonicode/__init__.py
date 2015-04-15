@@ -145,7 +145,7 @@ def mnparse(string, word_separator="-", group_separator="--"):
     )
 
 
-def mnencode_main():
+def _mnencode_main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'infile', nargs='?',
@@ -160,7 +160,7 @@ def mnencode_main():
     args.outfile.write(mnformat(args.infile.read()))
 
 
-def mndecode_main():
+def _mndecode_main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'infile', nargs='?',
