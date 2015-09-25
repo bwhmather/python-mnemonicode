@@ -6,7 +6,7 @@ from mnemonicode._wordlist import index_to_word, word_to_index
 
 def _to_base(base, num):
     """Encode a positive integer as a big-endian list of digits in the given
-    base
+    base.
     """
     if num < 0:
         raise ValueError("only works on positive integers")
@@ -20,7 +20,7 @@ def _to_base(base, num):
 
 def _from_base(base, num):
     """Decode a big-endian iterable of digits in the given base to a single
-    positive integer
+    positive integer.
     """
     out = 0
     for digit in num:
@@ -64,20 +64,37 @@ def _block_to_words(block):
 
 
 def _divide(data, size):
-    """Split an iterator at `size` item intervals
+    """Split an iterator at ``size`` item intervals
     """
     for offset in range(0, len(data), size):
         yield data[offset:offset + size]
 
 
 def mnencode(data):
-    """Encode a bytes object as an iterator of tuples of words
+    """Encode a bytes object as an iterator of tuples of words.
+
+    :param bytes data:
+        The binary data to encode.
+    :returns:
+        A list of tuples of between one and three words from the wordlist.
     """
     for block in _divide(data, 4):
         yield tuple(_block_to_words(block))
 
 
 def mnformat(data, word_separator="-", group_separator="--"):
+    """Encode a byte array as a sequence of grouped words, formatted as a
+    single string.
+
+    :param bytes data:
+        The binary data to encode.
+    :param str word_separator:
+        String that should be used to separate words within a group.
+    :param str word_separator:
+        String that should be used to separate groups of words.
+    :return str:
+        The data as an sequence of grouped words.
+    """
     return group_separator.join(
         word_separator.join(group) for group in mnencode(data)
     )
@@ -128,12 +145,28 @@ def _words_to_block(words):
 
 
 def mndecode(data):
-    """Decode an iterator of tuples of words into a bytes object
+    """Decode an iterator of tuples of words to get a byte array
+
+    :param data:
+        An iterator of tuples of between one and three words from the wordlist
+    :return bytes:
+        A :class:`bytes` object containing the decoded data
     """
     return b''.join(_words_to_block(words) for words in data)
 
 
 def mnparse(string, word_separator="-", group_separator="--"):
+    """Decode a mnemonicode string into a byte array.
+
+    :param str string:
+        The string containing the mnemonicode encoded data.
+    :param str word_separator:
+        String used to separate individual words in a group.
+    :param str group_separator:
+        String used to separate groups of words representing four byte blocks.
+    :return bytes:
+        A :class:`bytes` object containing the decoded data
+    """
     # empty string is a valid input but ``"".split(...)`` does not return an
     # empty iterator so we need to special case it
     if len(string) == 0:
