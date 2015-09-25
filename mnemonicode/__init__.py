@@ -180,6 +180,8 @@ def mnparse(string, word_separator="-", group_separator="--"):
 
 def _mnencode_main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-w', '--word-separator', type=str, default='-')
+    parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
         'infile', nargs='?',
         type=argparse.FileType('rb'), default=sys.stdin.buffer
@@ -190,11 +192,17 @@ def _mnencode_main():
     )
     args = parser.parse_args()
 
-    args.outfile.write(mnformat(args.infile.read()))
+    args.outfile.write(mnformat(
+        args.infile.read().strip(),
+        word_separator=args.word_separator,
+        group_separator=args.group_separator,
+    ))
 
 
 def _mndecode_main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-w', '--word-separator', type=str, default='-')
+    parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
         'infile', nargs='?',
         type=argparse.FileType('r'), default=sys.stdin
@@ -205,4 +213,8 @@ def _mndecode_main():
     )
     args = parser.parse_args()
 
-    args.outfile.write(mnparse(args.infile.read()))
+    args.outfile.write(mnparse(
+        args.infile.read().strip(),
+        word_separator=args.word_separator,
+        group_separator=args.group_separator,
+    ))
