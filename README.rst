@@ -21,9 +21,9 @@ Recommended method is to use the version from `pypi`_
 Links
 -----
 
-- Source code: https://github.com/bwhmather/mnemonicode
-- Issue tracker: https://github.com/bwhmather/mnemonicode/issues
-- Continuous integration: https://travis-ci.org/bwhmather/mnemonicode
+- Source code: https://github.com/bwhmather/python-mnemonicode
+- Issue tracker: https://github.com/bwhmather/python-mnemonicode/issues
+- Continuous integration: https://travis-ci.org/bwhmather/python-mnemonicode
 - PyPI: https://pypi.python.org/pypi/mnemonicode
 
 
