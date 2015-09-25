@@ -18,6 +18,31 @@ Recommended method is to use the version from `pypi`_
     pip install mnemonicode
 
 
+Usage
+-----
+
+Encode
+.. code::
+
+    import mnemonicode as mn
+    with open(infile, 'rb') as f:
+        data = f.read()
+    
+    output = mn.mnformat(data)
+    with open(outfile, 'w') as f:
+        f.write(output)
+
+Decode
+.. code::
+    import mnemonicode as mn
+    with open(infile, 'r') as f:
+        data = f.read()
+    
+    output = mn.mnparse(data)
+    with open(outfile, 'wb') as f:
+        f.write(output)
+
+
 Links
 -----
 
