@@ -193,7 +193,7 @@ def _mnencode_main():
     args = parser.parse_args()
 
     args.outfile.write(mnformat(
-        args.infile.read().strip(),
+        args.infile.read(),
         word_separator=args.word_separator,
         group_separator=args.group_separator,
     ))
