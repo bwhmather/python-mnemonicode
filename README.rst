@@ -24,6 +24,7 @@ Usage
 Encode
 
 .. code::
+
     import mnemonicode as mn
     with open(infile, 'rb') as f:
         data = f.read()
@@ -35,6 +36,7 @@ Encode
 Decode
 
 .. code::
+
     import mnemonicode as mn
     with open(infile, 'r') as f:
         data = f.read()
