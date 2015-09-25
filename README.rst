@@ -18,12 +18,40 @@ Recommended method is to use the version from `pypi`_
     pip install mnemonicode
 
 
+Usage
+-----
+
+Encode
+
+.. code::
+
+    import mnemonicode as mn
+    with open(infile, 'rb') as f:
+        data = f.read()
+    
+    output = mn.mnformat(data)
+    with open(outfile, 'w') as f:
+        f.write(output)
+
+Decode
+
+.. code::
+
+    import mnemonicode as mn
+    with open(infile, 'r') as f:
+        data = f.read()
+    
+    output = mn.mnparse(data)
+    with open(outfile, 'wb') as f:
+        f.write(output)
+
+
 Links
 -----
 
-- Source code: https://github.com/bwhmather/mnemonicode
-- Issue tracker: https://github.com/bwhmather/mnemonicode/issues
-- Continuous integration: https://travis-ci.org/bwhmather/mnemonicode
+- Source code: https://github.com/bwhmather/python-mnemonicode
+- Issue tracker: https://github.com/bwhmather/python-mnemonicode/issues
+- Continuous integration: https://travis-ci.org/bwhmather/python-mnemonicode
 - PyPI: https://pypi.python.org/pypi/mnemonicode
 
 

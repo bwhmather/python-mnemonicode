@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='mnemonicode',
-    url='https://github.com/bwhmather/mnemonicode',
-    version='1.2.0',
+    url='https://github.com/bwhmather/python-mnemonicode',
+    version='1.3.0',
     author='Ben Mather',
     author_email='bwhmather@bwhmather.com',
     maintainer='',
@@ -28,8 +28,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'mnencode=mnemonicode:mnencode_main',
-            'mndecode=mnemonicode:mndecode_main',
+            'mnencode=mnemonicode:_mnencode_main',
+            'mndecode=mnemonicode:_mndecode_main',
         ],
     },
     test_suite='mnemonicode.tests.suite',
