@@ -22,8 +22,8 @@ Usage
 -----
 
 Encode
-.. code::
 
+.. code::
     import mnemonicode as mn
     with open(infile, 'rb') as f:
         data = f.read()
@@ -33,6 +33,7 @@ Encode
         f.write(output)
 
 Decode
+
 .. code::
     import mnemonicode as mn
     with open(infile, 'r') as f:
