@@ -1,4 +1,5 @@
 import unittest
+import doctest
 
 import mnemonicode
 from mnemonicode import _to_base, _from_base
@@ -209,4 +210,5 @@ suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestFormat),
     loader.loadTestsFromTestCase(TestDecode),
     loader.loadTestsFromTestCase(TestParse),
+    doctest.DocTestSuite(mnemonicode),
 ))

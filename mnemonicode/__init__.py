@@ -73,6 +73,9 @@ def _divide(data, size):
 def mnencode(data):
     """Encode a bytes object as an iterator of tuples of words.
 
+    >>> list(mnencode(b"avocado"))
+    [('bicycle', 'visible', 'robert'), ('cloud', 'unicorn', 'jet')]
+
     :param bytes data:
         The binary data to encode.
     :returns:
@@ -85,6 +88,9 @@ def mnencode(data):
 def mnformat(data, word_separator="-", group_separator="--"):
     """Encode a byte array as a sequence of grouped words, formatted as a
     single string.
+
+    >>> mnformat(b"cucumber")
+    'paris-pearl-ultra--gentle-press-total'
 
     :param bytes data:
         The binary data to encode.
@@ -147,6 +153,9 @@ def _words_to_block(words):
 def mndecode(data):
     """Decode an iterator of tuples of words to get a byte array
 
+    >>> mndecode([('turtle', 'special', 'recycle'), ('ferrari', 'album')])
+    b'potato'
+
     :param data:
         An iterator of tuples of between one and three words from the wordlist
     :return bytes:
@@ -157,6 +166,9 @@ def mndecode(data):
 
 def mnparse(string, word_separator="-", group_separator="--"):
     """Decode a mnemonicode string into a byte array.
+
+    >>> mnparse('scoop-limit-recycle--ferrari-album')
+    b'tomato'
 
     :param str string:
         The string containing the mnemonicode encoded data.
