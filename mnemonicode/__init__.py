@@ -81,6 +81,10 @@ def mnencode(data):
     :returns:
         A list of tuples of between one and three words from the wordlist.
     """
+    if not isinstance(data, (bytes, bytearray)):
+        raise TypeError(
+            "expected bytes or bytearray, got %s" % type(data).__name__
+        )
     for block in _divide(data, 4):
         yield tuple(_block_to_words(block))
 
@@ -179,6 +183,9 @@ def mnparse(string, word_separator="-", group_separator="--"):
     :return bytes:
         A :class:`bytes` object containing the decoded data
     """
+    if not isinstance(string, str):
+        raise TypeError("expected string, got %s" % type(string).__name__)
+
     # empty string is a valid input but ``"".split(...)`` does not return an
     # empty iterator so we need to special case it
     if len(string) == 0:
