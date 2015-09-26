@@ -73,11 +73,18 @@ def _divide(data, size):
 def mnencode(data):
     """Encode a bytes object as an iterator of tuples of words.
 
+    >>> list(mnencode(b"avocado"))
+    [('bicycle', 'visible', 'robert'), ('cloud', 'unicorn', 'jet')]
+
     :param bytes data:
         The binary data to encode.
     :returns:
         A list of tuples of between one and three words from the wordlist.
     """
+    if not isinstance(data, (bytes, bytearray)):
+        raise TypeError(
+            "expected bytes or bytearray, got %s" % type(data).__name__
+        )
     for block in _divide(data, 4):
         yield tuple(_block_to_words(block))
 
@@ -85,6 +92,9 @@ def mnencode(data):
 def mnformat(data, word_separator="-", group_separator="--"):
     """Encode a byte array as a sequence of grouped words, formatted as a
     single string.
+
+    >>> mnformat(b"cucumber")
+    'paris-pearl-ultra--gentle-press-total'
 
     :param bytes data:
         The binary data to encode.
@@ -147,6 +157,9 @@ def _words_to_block(words):
 def mndecode(data):
     """Decode an iterator of tuples of words to get a byte array
 
+    >>> mndecode([('turtle', 'special', 'recycle'), ('ferrari', 'album')])
+    b'potato'
+
     :param data:
         An iterator of tuples of between one and three words from the wordlist
     :return bytes:
@@ -158,6 +171,9 @@ def mndecode(data):
 def mnparse(string, word_separator="-", group_separator="--"):
     """Decode a mnemonicode string into a byte array.
 
+    >>> mnparse('scoop-limit-recycle--ferrari-album')
+    b'tomato'
+
     :param str string:
         The string containing the mnemonicode encoded data.
     :param str word_separator:
@@ -167,6 +183,9 @@ def mnparse(string, word_separator="-", group_separator="--"):
     :return bytes:
         A :class:`bytes` object containing the decoded data
     """
+    if not isinstance(string, str):
+        raise TypeError("expected string, got %s" % type(string).__name__)
+
     # empty string is a valid input but ``"".split(...)`` does not return an
     # empty iterator so we need to special case it
     if len(string) == 0:
