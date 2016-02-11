@@ -21,29 +21,44 @@ Recommended method is to use the version from `pypi`_
 Usage
 -----
 
-Encode
+Python mnemonicode exposes four functions: py:function:`mnformat` and py:function:`mnparse` for handling conversions to and from formatted strings, and py:function:`mnencode` and py:function:`mndecode` for working with lower level lists of tuples of words.
 
-.. code::
 
-    import mnemonicode as mn
-    with open(infile, 'rb') as f:
-        data = f.read()
-    
-    output = mn.mnformat(data)
-    with open(outfile, 'w') as f:
-        f.write(output)
+String encoding
+~~~~~~~~~~~~~~~
 
-Decode
+Encode a byte array as a sequence of grouped words, formatted as a single string:
 
-.. code::
+>>> mnformat(b"cucumber")
+'paris-pearl-ultra--gentle-press-total;
 
-    import mnemonicode as mn
-    with open(infile, 'r') as f:
-        data = f.read()
-    
-    output = mn.mnparse(data)
-    with open(outfile, 'wb') as f:
-        f.write(output)
+Decode a mnemonicode string into a byte array:
+
+>>> mnparse('scoop-limit-recycle--ferrari-album')
+b'tomato'
+
+Both functions allow specifying the word and group separator.  It is safe for the word separator to match part of the group separator, but not the other way round.  Word and group separators that overlap with word in the dictionary should obviously be avoided.
+
+An example using custom separators:
+
+>>> mnemonicode.mnformat(
+...     b'apricot', group_separator=', uhhh, ', word_separator=', um, '
+... )
+'arctic, um, dilemma, um, single, uhhh, presto, um, mask, um, jet'
+
+
+Tuple encoding
+~~~~~~~~~~~~~~
+
+Encode a bytes object as an iterator of tuples of words:
+
+>>> list(mnencode(b"avocado"))
+[('bicycle', 'visible', 'robert'), ('cloud', 'unicorn', 'jet')]
+
+Decode an iterator of tuples of words to get a byte array:
+
+>>> mndecode([('turtle', 'special', 'recycle'), ('ferrari', 'album')])
+b'potato'
 
 
 Links
