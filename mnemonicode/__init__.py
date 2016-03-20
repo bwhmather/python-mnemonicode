@@ -199,17 +199,34 @@ def mnparse(string, word_separator="-", group_separator="--"):
 
 def _mnencode_main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-w', '--word-separator', type=str, default='-')
-    parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
-        '-o', '--output',
-        type=argparse.FileType('w'),
-        default=sys.stdout
+        '-w', '--word-separator', type=str, default='-',
+        help=(
+            "String used to separate individual words within a group.  "
+            "Defaults to \"-\""
+        )
+    )
+    parser.add_argument(
+        '-g', '--group-separator', type=str, default='--',
+        help=(
+            "String used to separate the groups of words representing four "
+            "byte blocks.  Defaults to \"--\""
+        )
+    )
+    parser.add_argument(
+        '-o', '--output', type=argparse.FileType('w'), default=sys.stdout,
+        help=(
+            "Where to write the encoded output.  This should be the path to a "
+            "file, or \"-\" to indicate stdout.  Defaults to stdout."
+        )
     )
     parser.add_argument(
         'input', nargs='?',
-        type=argparse.FileType('rb'),
-        default=sys.stdin.buffer
+        type=argparse.FileType('rb'), default=sys.stdin.buffer,
+        help=(
+            "Optionally specify a the location of a file to read from.  "
+            "Passing \"-\" indicates that the default, stdin, should be used."
+        )
     )
     args = parser.parse_args()
 
@@ -222,17 +239,33 @@ def _mnencode_main():
 
 def _mndecode_main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-w', '--word-separator', type=str, default='-')
-    parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
-        '-o', '--output',
-        type=argparse.FileType('wb'),
-        default=sys.stdout.buffer
+        '-w', '--word-separator', type=str, default='-',
+        help=(
+            "String used to separate individual words within a group.  "
+            "Defaults to \"-\""
+        )
+    )
+    parser.add_argument('-g', '--group-separator', type=str, default='--',
+        help=(
+            "String used to separate the groups of words representing four "
+            "byte blocks.  Defaults to \"--\""
+        )
     )
     parser.add_argument(
-        'input', nargs='?',
-        type=argparse.FileType('r'),
-        default=sys.stdin
+        '-o', '--output',
+        type=argparse.FileType('wb'), default=sys.stdout.buffer,
+        help=(
+            "Where to write the decoded output.  This should be the path to a "
+            "file, or \"-\" to indicate stdout.  Defaults to stdout."
+        )
+    )
+    parser.add_argument(
+        'input', nargs='?', type=argparse.FileType('r'), default=sys.stdin,
+        help=(
+            "Optionally specify a the location of a file to read from.  "
+            "Passing \"-\" indicates that the default, stdin, should be used."
+        )
     )
     args = parser.parse_args()
 
