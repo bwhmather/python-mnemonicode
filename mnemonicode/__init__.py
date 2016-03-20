@@ -203,13 +203,13 @@ def _mnencode_main():
     parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
         '-o', '--output',
-        type=argparse.FileType('wb'),
-        default=sys.stdout.buffer
+        type=argparse.FileType('w'),
+        default=sys.stdout
     )
     parser.add_argument(
         'input', nargs='?',
-        type=argparse.FileType('r'),
-        default=sys.stdin
+        type=argparse.FileType('rb'),
+        default=sys.stdin.buffer
     )
     args = parser.parse_args()
 
