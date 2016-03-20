@@ -261,7 +261,7 @@ class TestEncodeCommand(unittest.TestCase):
             p = subprocess.Popen(
                 ['mnencode', f.name], stdout=subprocess.PIPE,
             )
-            stdout, stderr = p.communicate()
+            stdout, stderr = p.communicate(timeout=1)
             self.assertEqual(stdout, b"rondo-presto-total--daniel-alex")
             self.assertFalse(stderr)
 
@@ -280,7 +280,7 @@ class TestEncodeCommand(unittest.TestCase):
                 p = subprocess.Popen(
                     ['mnencode', '-o', output_path], stdin=subprocess.PIPE,
                 )
-                stdout, stderr = p.communicate(b"tamarillo")
+                stdout, stderr = p.communicate(b"tamarillo", timeout=1)
                 self.assertFalse(stdout)
                 self.assertFalse(stderr)
 
