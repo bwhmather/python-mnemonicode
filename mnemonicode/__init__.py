@@ -246,7 +246,8 @@ def _mndecode_main():
             "Defaults to \"-\""
         )
     )
-    parser.add_argument('-g', '--group-separator', type=str, default='--',
+    parser.add_argument(
+        '-g', '--group-separator', type=str, default='--',
         help=(
             "String used to separate the groups of words representing four "
             "byte blocks.  Defaults to \"--\""
