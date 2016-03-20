@@ -1,6 +1,10 @@
 import unittest
 import doctest
 
+import os
+import subprocess
+import tempfile
+
 import mnemonicode
 from mnemonicode import _to_base, _from_base
 
@@ -202,6 +206,97 @@ class TestParse(unittest.TestCase):
         test(b"abcde", "bogart-atlas-safari--cannon")
 
 
+def _try_kill(p):
+    p.terminate()
+    try:
+        p.wait(timeout=1)
+    except subprocess.TimeoutExpired:
+        p.kill()
+
+
+class TestEncodeCommand(unittest.TestCase):
+    def test_basic(self):
+        try:
+            p = subprocess.Popen(
+                ['mnencode'], stdin=subprocess.PIPE, stdout=subprocess.PIPE
+            )
+            stdout, stderr = p.communicate(b"rambutan", timeout=1)
+            self.assertEqual(
+                stdout, b"bridge-office-report--ruby-tiger-suzuki"
+            )
+            self.assertFalse(stderr)
+
+            p.wait(timeout=1)
+            self.assertEqual(p.returncode, 0)
+        except:
+            _try_kill(p)
+            raise
+
+    def test_binary(self):
+        try:
+            p = subprocess.Popen(
+                ['mnencode'], stdin=subprocess.PIPE, stdout=subprocess.PIPE
+            )
+            stdout, stderr = p.communicate(
+                bytes([0, 1, 2, 3, 4, 251, 252, 253, 254, 255]), timeout=1
+            )
+            self.assertEqual(
+                stdout,
+                b"battery-cinema-alex--spirit-rose-weather--neutral-archive"
+            )
+            self.assertFalse(stderr)
+
+            p.wait(timeout=1)
+            self.assertEqual(p.returncode, 0)
+        except:
+            _try_kill(p)
+            raise
+
+    def test_input_file(self):
+        f = tempfile.NamedTemporaryFile('wb', delete=False)
+        try:
+            f.write(b"cherry")
+            f.close()
+
+            p = subprocess.Popen(
+                ['mnencode', f.name], stdout=subprocess.PIPE,
+            )
+            stdout, stderr = p.communicate()
+            self.assertEqual(stdout, b"rondo-presto-total--daniel-alex")
+            self.assertFalse(stderr)
+
+            p.wait(timeout=1)
+            self.assertEqual(p.returncode, 0)
+        except:
+            _try_kill(p)
+            raise
+        finally:
+            os.unlink(f.name)
+
+    def test_output_file(self):
+        with tempfile.TemporaryDirectory() as d:
+            output_path = os.path.join(d, "output")
+            try:
+                p = subprocess.Popen(
+                    ['mnencode', '-o', output_path], stdin=subprocess.PIPE,
+                )
+                stdout, stderr = p.communicate(b"tamarillo")
+                self.assertFalse(stdout)
+                self.assertFalse(stderr)
+
+                p.wait(timeout=1)
+                self.assertEqual(p.returncode, 0)
+            except:
+                _try_kill(p)
+                raise
+
+            with open(output_path, 'rb') as f:
+                self.assertEqual(
+                    f.read(),
+                    b"status-libra-recycle--radar-animal-stone--carlo"
+                )
+
+
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestBaseConversion),
@@ -210,5 +305,6 @@ suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestFormat),
     loader.loadTestsFromTestCase(TestDecode),
     loader.loadTestsFromTestCase(TestParse),
+    loader.loadTestsFromTestCase(TestEncodeCommand),
     doctest.DocTestSuite(mnemonicode),
 ))
