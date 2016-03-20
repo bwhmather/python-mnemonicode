@@ -197,10 +197,9 @@ def mnparse(string, word_separator="-", group_separator="--"):
     )
 
 
-def _mnencode_main():
+def _mnencode_main():  # pragma: no cover
     # mndecode is tested by executing in a separate process.
     # This means that tests for it don't get noticed by the coverage tracker.
-    # pragma: no cover
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-w', '--word-separator', type=str, default='-',
@@ -240,10 +239,9 @@ def _mnencode_main():
     ))
 
 
-def _mndecode_main():
+def _mndecode_main():  # pragma: no cover
     # mndecode is tested by executing in a separate process.
     # This means that tests for it don't get noticed by the coverage tracker.
-    # pragma: no cover
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-w', '--word-separator', type=str, default='-',

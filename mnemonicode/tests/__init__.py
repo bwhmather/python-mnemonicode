@@ -206,7 +206,7 @@ class TestParse(unittest.TestCase):
         test(b"abcde", "bogart-atlas-safari--cannon")
 
 
-def _try_kill(p):
+def _try_kill(p):  # pragma: no cover
     p.terminate()
     try:
         p.wait(timeout=1)
@@ -228,7 +228,7 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -248,13 +248,13 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except:  # pragma: no cover
             _try_kill(p)
             raise
 
     def test_input_file(self):
         f = tempfile.NamedTemporaryFile('wb', delete=False)
-        try:
+        try:  # pragma: no cover
             f.write(b"cherry")
             f.close()
 
@@ -267,7 +267,7 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except:  # pragma: no cover
             _try_kill(p)
             raise
         finally:
@@ -286,7 +286,7 @@ class TestEncodeCommand(unittest.TestCase):
 
                 p.wait(timeout=1)
                 self.assertEqual(p.returncode, 0)
-            except:
+            except:  # pragma: no cover
                 _try_kill(p)
                 raise
 
@@ -311,7 +311,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -331,7 +331,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -350,7 +350,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except:  # pragma: no cover
             _try_kill(p)
             raise
         finally:
@@ -372,7 +372,7 @@ class TestDecodeCommand(unittest.TestCase):
 
                 p.wait(timeout=1)
                 self.assertEqual(p.returncode, 0)
-            except:
+            except:  # pragma: no cover
                 _try_kill(p)
                 raise
 
