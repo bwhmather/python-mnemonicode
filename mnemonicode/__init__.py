@@ -202,17 +202,19 @@ def _mnencode_main():
     parser.add_argument('-w', '--word-separator', type=str, default='-')
     parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
-        'infile', nargs='?',
-        type=argparse.FileType('rb'), default=sys.stdin.buffer
+        '-o', '--output',
+        type=argparse.FileType('wb'),
+        default=sys.stdout.buffer
     )
     parser.add_argument(
-        'outfile', nargs='?',
-        type=argparse.FileType('w'), default=sys.stdout
+        'input', nargs='?',
+        type=argparse.FileType('r'),
+        default=sys.stdin
     )
     args = parser.parse_args()
 
-    args.outfile.write(mnformat(
-        args.infile.read(),
+    args.output.write(mnformat(
+        args.input.read(),
         word_separator=args.word_separator,
         group_separator=args.group_separator,
     ))
@@ -223,17 +225,19 @@ def _mndecode_main():
     parser.add_argument('-w', '--word-separator', type=str, default='-')
     parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
-        'infile', nargs='?',
-        type=argparse.FileType('r'), default=sys.stdin
+        '-o', '--output',
+        type=argparse.FileType('wb'),
+        default=sys.stdout.buffer
     )
     parser.add_argument(
-        'outfile', nargs='?',
-        type=argparse.FileType('wb'), default=sys.stdout.buffer
+        'input', nargs='?',
+        type=argparse.FileType('r'),
+        default=sys.stdin
     )
     args = parser.parse_args()
 
-    args.outfile.write(mnparse(
-        args.infile.read().strip(),
+    args.output.write(mnparse(
+        args.input.read().strip(),
         word_separator=args.word_separator,
         group_separator=args.group_separator,
     ))
