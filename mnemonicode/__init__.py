@@ -198,42 +198,86 @@ def mnparse(string, word_separator="-", group_separator="--"):
 
 
 def _mnencode_main():
+    # mndecode is tested by executing in a separate process.
+    # This means that tests for it don't get noticed by the coverage tracker.
+    # pragma: no cover
     parser = argparse.ArgumentParser()
-    parser.add_argument('-w', '--word-separator', type=str, default='-')
-    parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
-        'infile', nargs='?',
-        type=argparse.FileType('rb'), default=sys.stdin.buffer
+        '-w', '--word-separator', type=str, default='-',
+        help=(
+            "String used to separate individual words within a group.  "
+            "Defaults to \"-\""
+        )
     )
     parser.add_argument(
-        'outfile', nargs='?',
-        type=argparse.FileType('w'), default=sys.stdout
+        '-g', '--group-separator', type=str, default='--',
+        help=(
+            "String used to separate the groups of words representing four "
+            "byte blocks.  Defaults to \"--\""
+        )
+    )
+    parser.add_argument(
+        '-o', '--output', type=argparse.FileType('w'), default=sys.stdout,
+        help=(
+            "Where to write the encoded output.  This should be the path to a "
+            "file, or \"-\" to indicate stdout.  Defaults to stdout."
+        )
+    )
+    parser.add_argument(
+        'input', nargs='?',
+        type=argparse.FileType('rb'), default=sys.stdin.buffer,
+        help=(
+            "Optionally specify a the location of a file to read from.  "
+            "Passing \"-\" indicates that the default, stdin, should be used."
+        )
     )
     args = parser.parse_args()
 
-    args.outfile.write(mnformat(
-        args.infile.read(),
+    args.output.write(mnformat(
+        args.input.read(),
         word_separator=args.word_separator,
         group_separator=args.group_separator,
     ))
 
 
 def _mndecode_main():
+    # mndecode is tested by executing in a separate process.
+    # This means that tests for it don't get noticed by the coverage tracker.
+    # pragma: no cover
     parser = argparse.ArgumentParser()
-    parser.add_argument('-w', '--word-separator', type=str, default='-')
-    parser.add_argument('-g', '--group-separator', type=str, default='--')
     parser.add_argument(
-        'infile', nargs='?',
-        type=argparse.FileType('r'), default=sys.stdin
+        '-w', '--word-separator', type=str, default='-',
+        help=(
+            "String used to separate individual words within a group.  "
+            "Defaults to \"-\""
+        )
     )
     parser.add_argument(
-        'outfile', nargs='?',
-        type=argparse.FileType('wb'), default=sys.stdout.buffer
+        '-g', '--group-separator', type=str, default='--',
+        help=(
+            "String used to separate the groups of words representing four "
+            "byte blocks.  Defaults to \"--\""
+        )
+    )
+    parser.add_argument(
+        '-o', '--output',
+        type=argparse.FileType('wb'), default=sys.stdout.buffer,
+        help=(
+            "Where to write the decoded output.  This should be the path to a "
+            "file, or \"-\" to indicate stdout.  Defaults to stdout."
+        )
+    )
+    parser.add_argument(
+        'input', nargs='?', type=argparse.FileType('r'), default=sys.stdin,
+        help=(
+            "Optionally specify a the location of a file to read from.  "
+            "Passing \"-\" indicates that the default, stdin, should be used."
+        )
     )
     args = parser.parse_args()
 
-    args.outfile.write(mnparse(
-        args.infile.read().strip(),
+    args.output.write(mnparse(
+        args.input.read().strip(),
         word_separator=args.word_separator,
         group_separator=args.group_separator,
     ))
