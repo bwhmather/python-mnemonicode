@@ -389,5 +389,6 @@ suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestDecode),
     loader.loadTestsFromTestCase(TestParse),
     loader.loadTestsFromTestCase(TestEncodeCommand),
+    loader.loadTestsFromTestCase(TestDecodeCommand),
     doctest.DocTestSuite(mnemonicode),
 ))
