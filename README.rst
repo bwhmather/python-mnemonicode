@@ -20,7 +20,7 @@ Recommended method is to use the version from `pypi`_
 Usage
 -----
 
-Python mnemonicode exposes four functions: py:function:`mnformat` and py:function:`mnparse` for handling conversions to and from formatted strings, and py:function:`mnencode` and py:function:`mndecode` for working with lower level lists of tuples of words.
+Python mnemonicode exposes four functions: `mnformat` and `mnparse` for handling conversions to and from formatted strings, and `mnencode` and `mndecode` for working with lower level lists of tuples of words.
 
 
 String encoding
