@@ -16,6 +16,8 @@ Recommended method is to use the version from `pypi`_
 .. code::
     pip install mnemonicode
 
+Please note that this library supports python 3 only.
+
 
 Usage
 -----
