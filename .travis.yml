@@ -11,12 +11,14 @@ install:
   - "pip install pyflakes"
   - "pip install pep8"
   - "pip install pylint"
+  - "pip install mypy"
 
 script:
   - "coverage run --source=mnemonicode setup.py test"
   - "pep8 mnemonicode setup.py"
   - "pyflakes mnemonicode setup.py"
   - "pylint -E mnemonicode setup.py"
+  - "mypy mnemonicode"
 
 after_success:
   - "coveralls"
