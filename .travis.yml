@@ -3,6 +3,7 @@ sudo: false
 python:
   - "3.4"
   - "3.5"
+  - "3.6"
 
 install:
   - "pip install -e ."
