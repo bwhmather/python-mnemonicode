@@ -27,7 +27,7 @@ setup(
     ],
     packages=find_packages(),
     package_data={
-        '': ['*.*'],
+        '': ['*.pyi'],
     },
     entry_points={
         'console_scripts': [
