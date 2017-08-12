@@ -9,4 +9,4 @@ recursive-include mnemonicode *.py
 recursive-include mnemonicode *.pyi
 
 # Include documentation.
-include README.mkd LICENSE
+include README.rst LICENSE
