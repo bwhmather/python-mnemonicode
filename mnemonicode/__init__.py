@@ -2,33 +2,7 @@ import sys
 import argparse
 
 from mnemonicode._wordlist import index_to_word, word_to_index
-
-
-def _to_base(base, num):
-    """Encode a positive integer as a big-endian list of digits in the given
-    base.
-    """
-    if num < 0:
-        raise ValueError("only works on positive integers")
-
-    out = []
-    while num > 0:
-        out.insert(0, num % base)
-        num //= base
-    return out
-
-
-def _from_base(base, num):
-    """Decode a big-endian iterable of digits in the given base to a single
-    positive integer.
-    """
-    out = 0
-    for digit in num:
-        if digit >= base or digit < 0:
-            raise ValueError("invalid digit: %i" % digit)
-        out *= base
-        out += digit
-    return out
+from mnemonicode._utils import to_base, from_base
 
 
 def _block_to_indices(block):
@@ -36,9 +10,9 @@ def _block_to_indices(block):
         raise ValueError("block too big")
 
     # menmonicode uses little-endian numbers
-    num = _from_base(256, reversed(block))
+    num = from_base(256, reversed(block))
 
-    indices = list(reversed(_to_base(1626, num)))
+    indices = list(reversed(to_base(1626, num)))
 
     # pad the list of indices to the correct size
     length = {
@@ -146,9 +120,9 @@ def _words_to_block(words):
                 "unexpected three byte word: %s" % index_to_word(index)
             )
 
-    num = _from_base(1626, reversed(indices))
+    num = from_base(1626, reversed(indices))
 
-    block = bytes(reversed(_to_base(256, num)))
+    block = bytes(reversed(to_base(256, num)))
 
     # pad to correct length
     return block.ljust(length, b'\x00')
