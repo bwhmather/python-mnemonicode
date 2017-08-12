@@ -13,8 +13,9 @@ Installation
 
 Recommended method is to use the version from `pypi`_
 
-.. code::
-    pip install mnemonicode
+.. code:: bash
+
+    $ pip install mnemonicode
 
 Please note that this library supports python 3 only.
 
@@ -31,12 +32,14 @@ String encoding
 Encode a byte array as a sequence of grouped words, formatted as a single string:
 
 .. code:: python
+
     >>> mnformat(b"cucumber")
     'paris-pearl-ultra--gentle-press-total';
 
 Decode a mnemonicode string into a byte array:
 
 .. code:: python
+
     >>> mnparse('scoop-limit-recycle--ferrari-album')
     b'tomato'
 
@@ -45,6 +48,7 @@ Both functions allow specifying the word and group separator.  It is safe for th
 An example using custom separators:
 
 ..code:: python
+
     >>> mnemonicode.mnformat(
     ...     b'apricot', group_separator=', uhhh, ', word_separator=', um, '
     ... )
@@ -57,12 +61,14 @@ Tuple encoding
 Encode a bytes object as an iterator of tuples of words:
 
 .. code:: python
+
     >>> list(mnencode(b"avocado"))
     [('bicycle', 'visible', 'robert'), ('cloud', 'unicorn', 'jet')]
 
 Decode an iterator of tuples of words to get a byte array:
 
 .. code:: python
+
     >>> mndecode([('turtle', 'special', 'recycle'), ('ferrari', 'album')])
     b'potato'
 
