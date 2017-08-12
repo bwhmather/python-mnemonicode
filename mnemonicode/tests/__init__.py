@@ -6,47 +6,47 @@ import subprocess
 import tempfile
 
 import mnemonicode
-from mnemonicode import _to_base, _from_base
+from mnemonicode._utils import to_base, from_base, chunk_sequence
 
 
 class TestBaseConversion(unittest.TestCase):
     def test_encode_zero(self):
-        self.assertEqual([], _to_base(12, 0))
+        self.assertEqual([], to_base(12, 0))
 
     def test_encode_base_ten(self):
-        self.assertEqual([1, 2, 3, 4, 5, 6], _to_base(10, 123456))
+        self.assertEqual([1, 2, 3, 4, 5, 6], to_base(10, 123456))
 
     def test_encode_negative(self):
-        self.assertRaises(ValueError, _to_base, 64, -10)
+        self.assertRaises(ValueError, to_base, 64, -10)
 
     def test_decode_base_ten(self):
-        self.assertEqual(123456, _from_base(10, [1, 2, 3, 4, 5, 6]))
+        self.assertEqual(123456, from_base(10, [1, 2, 3, 4, 5, 6]))
 
     def test_decode_zero(self):
-        self.assertEqual(0, _from_base(16, []))
+        self.assertEqual(0, from_base(16, []))
 
     def test_decode_empty_digits(self):
-        self.assertEqual(456, _from_base(10, [0, 0, 0, 4, 5, 6]))
+        self.assertEqual(456, from_base(10, [0, 0, 0, 4, 5, 6]))
 
     def test_decode_invalid_digits(self):
-        self.assertRaises(ValueError, _from_base, 8, [128])
-        self.assertRaises(ValueError, _from_base, 8, [8])
+        self.assertRaises(ValueError, from_base, 8, [128])
+        self.assertRaises(ValueError, from_base, 8, [8])
 
 
-class TestMnemonicode(unittest.TestCase):
+class TestChunkSequence(unittest.TestCase):
     def test_divide(self):
         self.assertEqual(
-            list(mnemonicode._divide(b'12345678', 4)),
+            list(chunk_sequence(b'12345678', 4)),
             [b'1234', b'5678']
         )
 
         self.assertEqual(
-            list(mnemonicode._divide(b'1234567', 4)),
+            list(chunk_sequence(b'1234567', 4)),
             [b'1234', b'567']
         )
 
         self.assertEqual(
-            list(mnemonicode._divide(b'12345', 4)),
+            list(chunk_sequence(b'12345', 4)),
             [b'1234', b'5']
         )
 
@@ -206,7 +206,7 @@ class TestParse(unittest.TestCase):
         test(b"abcde", "bogart-atlas-safari--cannon")
 
 
-def _try_kill(p):
+def _try_kill(p):  # pragma: no cover
     p.terminate()
     try:
         p.wait(timeout=1)
@@ -228,7 +228,7 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -248,13 +248,13 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
     def test_input_file(self):
         f = tempfile.NamedTemporaryFile('wb', delete=False)
-        try:
+        try:  # pragma: no cover
             f.write(b"cherry")
             f.close()
 
@@ -267,7 +267,7 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
         finally:
@@ -286,7 +286,7 @@ class TestEncodeCommand(unittest.TestCase):
 
                 p.wait(timeout=1)
                 self.assertEqual(p.returncode, 0)
-            except:
+            except BaseException:  # pragma: no cover
                 _try_kill(p)
                 raise
 
@@ -311,7 +311,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -331,7 +331,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -350,7 +350,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
         finally:
@@ -372,7 +372,7 @@ class TestDecodeCommand(unittest.TestCase):
 
                 p.wait(timeout=1)
                 self.assertEqual(p.returncode, 0)
-            except:
+            except BaseException:  # pragma: no cover
                 _try_kill(p)
                 raise
 
@@ -383,12 +383,12 @@ class TestDecodeCommand(unittest.TestCase):
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestBaseConversion),
-    loader.loadTestsFromTestCase(TestMnemonicode),
+    loader.loadTestsFromTestCase(TestChunkSequence),
     loader.loadTestsFromTestCase(TestEncode),
     loader.loadTestsFromTestCase(TestFormat),
     loader.loadTestsFromTestCase(TestDecode),
     loader.loadTestsFromTestCase(TestParse),
     loader.loadTestsFromTestCase(TestEncodeCommand),
     loader.loadTestsFromTestCase(TestDecodeCommand),
-    doctest.DocTestSuite(mnemonicode),
+    doctest.DocTestSuite(mnemonicode),  # type: ignore
 ))
