@@ -9,13 +9,13 @@ install:
   - "pip install -e ."
   - "pip install coveralls"
   - "pip install pyflakes"
-  - "pip install pep8"
+  - "pip install pycodestyle"
   - "pip install pylint"
   - "pip install mypy"
 
 script:
   - "coverage run --source=mnemonicode setup.py test"
-  - "pep8 mnemonicode setup.py"
+  - "pycodestyle mnemonicode setup.py"
   - "pyflakes mnemonicode setup.py"
   - "pylint -E mnemonicode setup.py"
   - "mypy mnemonicode"
