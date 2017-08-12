@@ -2,7 +2,7 @@ import sys
 import argparse
 
 from mnemonicode._wordlist import index_to_word, word_to_index
-from mnemonicode._utils import to_base, from_base
+from mnemonicode._utils import to_base, from_base, chunk_sequence
 
 
 def _block_to_indices(block):
@@ -37,13 +37,6 @@ def _block_to_words(block):
         yield index_to_word(i)
 
 
-def _divide(data, size):
-    """Split an iterator at ``size`` item intervals
-    """
-    for offset in range(0, len(data), size):
-        yield data[offset:offset + size]
-
-
 def mnencode(data):
     """Encode a bytes object as an iterator of tuples of words.
 
@@ -59,7 +52,8 @@ def mnencode(data):
         raise TypeError(
             "expected bytes or bytearray, got %s" % type(data).__name__
         )
-    for block in _divide(data, 4):
+
+    for block in chunk_sequence(data, 4):
         yield tuple(_block_to_words(block))
 
 

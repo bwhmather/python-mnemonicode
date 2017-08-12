@@ -6,7 +6,7 @@ import subprocess
 import tempfile
 
 import mnemonicode
-from mnemonicode._utils import to_base, from_base
+from mnemonicode._utils import to_base, from_base, chunk_sequence
 
 
 class TestBaseConversion(unittest.TestCase):
@@ -33,20 +33,20 @@ class TestBaseConversion(unittest.TestCase):
         self.assertRaises(ValueError, from_base, 8, [8])
 
 
-class TestMnemonicode(unittest.TestCase):
+class TestChunkSequence(unittest.TestCase):
     def test_divide(self):
         self.assertEqual(
-            list(mnemonicode._divide(b'12345678', 4)),
+            list(chunk_sequence(b'12345678', 4)),
             [b'1234', b'5678']
         )
 
         self.assertEqual(
-            list(mnemonicode._divide(b'1234567', 4)),
+            list(chunk_sequence(b'1234567', 4)),
             [b'1234', b'567']
         )
 
         self.assertEqual(
-            list(mnemonicode._divide(b'12345', 4)),
+            list(chunk_sequence(b'12345', 4)),
             [b'1234', b'5']
         )
 
@@ -383,7 +383,7 @@ class TestDecodeCommand(unittest.TestCase):
 loader = unittest.TestLoader()
 suite = unittest.TestSuite((
     loader.loadTestsFromTestCase(TestBaseConversion),
-    loader.loadTestsFromTestCase(TestMnemonicode),
+    loader.loadTestsFromTestCase(TestChunkSequence),
     loader.loadTestsFromTestCase(TestEncode),
     loader.loadTestsFromTestCase(TestFormat),
     loader.loadTestsFromTestCase(TestDecode),

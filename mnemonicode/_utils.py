@@ -23,3 +23,10 @@ def from_base(base, num):
         out *= base
         out += digit
     return out
+
+
+def chunk_sequence(data, size):
+    """Split an iterator at ``size`` item intervals
+    """
+    for offset in range(0, len(data), size):
+        yield data[offset:offset + size]
