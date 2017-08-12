@@ -228,7 +228,7 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:  # pragma: no cover
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -248,7 +248,7 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:  # pragma: no cover
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -267,7 +267,7 @@ class TestEncodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:  # pragma: no cover
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
         finally:
@@ -286,7 +286,7 @@ class TestEncodeCommand(unittest.TestCase):
 
                 p.wait(timeout=1)
                 self.assertEqual(p.returncode, 0)
-            except:  # pragma: no cover
+            except BaseException:  # pragma: no cover
                 _try_kill(p)
                 raise
 
@@ -311,7 +311,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:  # pragma: no cover
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -331,7 +331,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:  # pragma: no cover
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
 
@@ -350,7 +350,7 @@ class TestDecodeCommand(unittest.TestCase):
 
             p.wait(timeout=1)
             self.assertEqual(p.returncode, 0)
-        except:  # pragma: no cover
+        except BaseException:  # pragma: no cover
             _try_kill(p)
             raise
         finally:
@@ -372,7 +372,7 @@ class TestDecodeCommand(unittest.TestCase):
 
                 p.wait(timeout=1)
                 self.assertEqual(p.returncode, 0)
-            except:  # pragma: no cover
+            except BaseException:  # pragma: no cover
                 _try_kill(p)
                 raise
 
