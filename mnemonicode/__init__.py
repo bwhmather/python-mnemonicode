@@ -247,3 +247,6 @@ def _mndecode_main():  # pragma: no cover
         word_separator=args.word_separator,
         group_separator=args.group_separator,
     ))
+
+
+__all__ = ['mnencode', 'mnformat', 'mndecode', 'mnparse']
