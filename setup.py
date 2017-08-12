@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name='mnemonicode',
     url='https://github.com/bwhmather/python-mnemonicode',
-    version='1.4.0',
+    version='1.4.1',
     author='Ben Mather',
     author_email='bwhmather@bwhmather.com',
     maintainer='',
