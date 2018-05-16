@@ -1,6 +1,10 @@
 from setuptools import setup, find_packages
 
 
+with open('README.rst') as _readme_file:
+    readme = _readme_file.read()
+
+
 setup(
     name='mnemonicode',
     url='https://github.com/bwhmather/python-mnemonicode',
@@ -12,7 +16,8 @@ setup(
     description=(
         "A library for encoding binary data as a sequence of english words"
     ),
-    long_description=__doc__,
+    long_description=readme,
+    long_description_content_type='text/x-rst',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
