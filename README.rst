@@ -47,7 +47,7 @@ Both functions allow specifying the word and group separator.  It is safe for th
 
 An example using custom separators:
 
-..code:: python
+.. code:: python
 
     >>> mnemonicode.mnformat(
     ...     b'apricot', group_separator=', uhhh, ', word_separator=', um, '

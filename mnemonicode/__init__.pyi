@@ -11,6 +11,7 @@ WordGroup = typing.Union[
 def mnencode(data: bytes) -> typing.Iterator[WordGroup]:
     ...
 
+
 def mnformat(
     data: bytes, word_separator: str="-", group_separator: str="--",
 ) -> str:
