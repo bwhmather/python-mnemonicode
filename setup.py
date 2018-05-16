@@ -5,7 +5,6 @@ _readme_path = os.path.join(
     os.path.abspath(os.path.dirname(__file__)),
     'README.rst',
 )
-
 with open(_readme_path, encoding='utf-8') as _readme_file:
     _readme = _readme_file.read()
 
