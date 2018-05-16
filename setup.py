@@ -1,8 +1,13 @@
+import os
 from setuptools import setup, find_packages
 
+_readme_path = os.path.join(
+    os.path.abspath(os.path.dirname(__file__)),
+    'README.rst',
+)
 
-with open('README.rst') as _readme_file:
-    readme = _readme_file.read()
+with open(_readme_path, encoding='utf-8') as _readme_file:
+    _readme = _readme_file.read()
 
 
 setup(
@@ -16,7 +21,7 @@ setup(
     description=(
         "A library for encoding binary data as a sequence of english words"
     ),
-    long_description=readme,
+    long_description=_readme,
     long_description_content_type='text/x-rst',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
