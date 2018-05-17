@@ -49,9 +49,9 @@ def mnencode(data):
         A list of tuples of between one and three words from the wordlist.
     """
     if not isinstance(data, (bytes, bytearray)):
-        raise TypeError(
-            "expected bytes or bytearray, got %s" % type(data).__name__
-        )
+        raise TypeError((
+            "expected bytes or bytearray, got {cls}"
+        ).format(cls=type(data).__name__))
 
     for block in chunk_sequence(data, 4):
         yield tuple(_block_to_words(block))
@@ -110,9 +110,9 @@ def _words_to_block(words):
     # the block.
     for index in indices:
         if index > 1626:
-            raise ValueError(
-                "unexpected three byte word: %s" % index_to_word(index)
-            )
+            raise ValueError((
+                "unexpected three byte word: {word!r}"
+            ).format(word=index_to_word(index)))
 
     num = from_base(1626, reversed(indices))
 
@@ -152,7 +152,9 @@ def mnparse(string, word_separator="-", group_separator="--"):
         A :class:`bytes` object containing the decoded data
     """
     if not isinstance(string, str):
-        raise TypeError("expected string, got %s" % type(string).__name__)
+        raise TypeError((
+            "expected string, got {cls}"
+        ).format(cls=type(string).__name__))
 
     # Empty string is a valid input but ``"".split(...)`` does not return an
     # empty iterator so we need to special case it.
