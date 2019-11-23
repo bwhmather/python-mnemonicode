@@ -9,12 +9,12 @@ def _block_to_indices(block):
     if len(block) > 4:
         raise ValueError("block too big")
 
-    # menmonicode uses little-endian numbers
+    # `menmonicode` uses little-endian numbers.
     num = from_base(256, reversed(block))
 
     indices = list(reversed(to_base(1626, num)))
 
-    # pad the list of indices to the correct size
+    # Pad the list of indices to the correct size.
     length = {
         1: 1,
         2: 2,
@@ -25,7 +25,7 @@ def _block_to_indices(block):
 
     # The third byte in a block slightly leaks into the third word.  A
     # different set of words is used for this case to distinguish it from the
-    # four byte case
+    # four byte case.
     if len(block) == 3:
         indices[-1] += 1626
 
@@ -49,9 +49,9 @@ def mnencode(data):
         A list of tuples of between one and three words from the wordlist.
     """
     if not isinstance(data, (bytes, bytearray)):
-        raise TypeError(
-            "expected bytes or bytearray, got %s" % type(data).__name__
-        )
+        raise TypeError((
+            "expected bytes or bytearray, got {cls}"
+        ).format(cls=type(data).__name__))
 
     for block in chunk_sequence(data, 4):
         yield tuple(_block_to_words(block))
@@ -93,10 +93,10 @@ def _words_to_block(words):
     except KeyError as e:
         raise ValueError("word not recognized") from e
 
-    # calculate length of block.
-    # both three byte and four byte blocks map to three words but can be
+    # Calculate length of block.
+    # Both three byte and four byte blocks map to three words but can be
     # distinguished as a different word list is used to encode the last word
-    # in the three byte case
+    # in the three byte case.
     length = {
         1: 1,
         2: 2,
@@ -106,19 +106,19 @@ def _words_to_block(words):
     if length == 3:
         indices[2] -= 1626
 
-    # check that words in the second word list don't appear anywhere else in
-    # the block
+    # Check that words in the second word list don't appear anywhere else in
+    # the block.
     for index in indices:
         if index > 1626:
-            raise ValueError(
-                "unexpected three byte word: %s" % index_to_word(index)
-            )
+            raise ValueError((
+                "unexpected three byte word: {word!r}"
+            ).format(word=index_to_word(index)))
 
     num = from_base(1626, reversed(indices))
 
     block = bytes(reversed(to_base(256, num)))
 
-    # pad to correct length
+    # Pad to correct length.
     return block.ljust(length, b'\x00')
 
 
@@ -152,10 +152,12 @@ def mnparse(string, word_separator="-", group_separator="--"):
         A :class:`bytes` object containing the decoded data
     """
     if not isinstance(string, str):
-        raise TypeError("expected string, got %s" % type(string).__name__)
+        raise TypeError((
+            "expected string, got {cls}"
+        ).format(cls=type(string).__name__))
 
-    # empty string is a valid input but ``"".split(...)`` does not return an
-    # empty iterator so we need to special case it
+    # Empty string is a valid input but ``"".split(...)`` does not return an
+    # empty iterator so we need to special case it.
     if len(string) == 0:
         return b''
 
@@ -166,7 +168,7 @@ def mnparse(string, word_separator="-", group_separator="--"):
 
 
 def _mnencode_main():  # pragma: no cover
-    # mndecode is tested by executing in a separate process.
+    # `mndecode` is tested by executing in a separate process.
     # This means that tests for it don't get noticed by the coverage tracker.
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -208,7 +210,7 @@ def _mnencode_main():  # pragma: no cover
 
 
 def _mndecode_main():  # pragma: no cover
-    # mndecode is tested by executing in a separate process.
+    # `mndecode` is tested by executing in a separate process.
     # This means that tests for it don't get noticed by the coverage tracker.
     parser = argparse.ArgumentParser()
     parser.add_argument(

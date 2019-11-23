@@ -12,7 +12,7 @@ with open(_readme_path, encoding='utf-8') as _readme_file:
 setup(
     name='mnemonicode',
     url='https://github.com/bwhmather/python-mnemonicode',
-    version='1.4.4',
+    version='1.4.5',
     author='Ben Mather',
     author_email='bwhmather@bwhmather.com',
     maintainer='',
@@ -30,6 +30,9 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3 :: Only',
     ],
     install_requires=[
