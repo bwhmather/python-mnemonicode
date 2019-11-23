@@ -10,6 +10,7 @@ python:
 install:
   - "pip install -e ."
   - "pip install coveralls"
+  - "pip install isort"
   - "pip install pyflakes"
   - "pip install pycodestyle"
   - "pip install pylint"
@@ -17,6 +18,7 @@ install:
 
 script:
   - "coverage run --source=mnemonicode setup.py test"
+  - "isort --check-only --diff --recursive mnemonicode setup.py"
   - "pycodestyle mnemonicode setup.py"
   - "pyflakes mnemonicode setup.py"
   - "pylint -E mnemonicode setup.py"
