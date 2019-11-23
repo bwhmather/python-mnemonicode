@@ -4,6 +4,8 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
+  - "3.8"
 
 install:
   - "pip install -e ."
@@ -30,4 +32,4 @@ deploy:
     secure: "obcTLRBOVAnEGyMpOnv+/AZriOPha8WPl6ftgZmJNS++Jo/9N37zIH1xODjstWj+784NzPIoUgKQYfviFCAcB62wxBQRpd3Rqu7R6XhM5oCh/pkKqqRHXyNeB+8lhQ3WsU+2Tp/hFgSPM6OpBIS5sc1UvwqCLXxDDIBksX5e12M="
   on:
     branch: "master"
-    condition: "\"${TRAVIS_PYTHON_VERSION}\" = '3.6'"
+    condition: "\"${TRAVIS_PYTHON_VERSION}\" = '3.8'"
