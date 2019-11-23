@@ -12,7 +12,7 @@ with open(_readme_path, encoding='utf-8') as _readme_file:
 setup(
     name='mnemonicode',
     url='https://github.com/bwhmather/python-mnemonicode',
-    version='1.4.4',
+    version='1.4.5',
     author='Ben Mather',
     author_email='bwhmather@bwhmather.com',
     maintainer='',
