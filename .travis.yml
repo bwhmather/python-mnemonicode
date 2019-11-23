@@ -1,31 +1,41 @@
 language: python
 sudo: false
-python:
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  - "3.7"
-  - "3.8"
+
+matrix:
+  include:
+    - python: "3.4"
+      env: TOXENV=py34
+    - python: "3.5"
+      env: TOXENV=py35
+    - python: "3.6"
+      env: TOXENV=py36
+    - python: "3.7"
+      env: TOXENV=py37
+    - python: "3.8"
+      env: TOXENV=py38
+    - python: "3.8"
+      env: TOXENV=isort
+    - python: "3.8"
+      env: TOXENV=pycodestyle
+    - python: "3.8"
+      env: TOXENV=pyflakes
+    - python: "3.8"
+      env: TOXENV=pylint
+    - python: "3.8"
+      env: TOXENV=mypy
+    - python: "3.8"
+      install:
+        - "pip install -e ."
+        - "pip install coveralls"
+      script:
+        - "coverage run --source=mnemonicode setup.py test"
+        - "coveralls"
 
 install:
-  - "pip install -e ."
-  - "pip install coveralls"
-  - "pip install isort"
-  - "pip install pyflakes"
-  - "pip install pycodestyle"
-  - "pip install pylint"
-  - "pip install mypy==0.670"
+  - "pip install tox"
 
 script:
-  - "coverage run --source=mnemonicode setup.py test"
-  - "isort --check-only --diff --recursive mnemonicode setup.py"
-  - "pycodestyle mnemonicode setup.py"
-  - "pyflakes mnemonicode setup.py"
-  - "pylint -E mnemonicode setup.py"
-  - "mypy mnemonicode"
-
-after_success:
-  - "coveralls"
+  - "tox"
 
 deploy:
   provider: pypi
