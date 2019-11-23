@@ -6,6 +6,7 @@ include setup.py
 recursive-include mnemonicode *.py
 
 # Include type annotation stub files.
+include mnemonicode/py.typed
 recursive-include mnemonicode *.pyi
 
 # Include documentation.
