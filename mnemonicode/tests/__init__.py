@@ -1,12 +1,11 @@
-import unittest
 import doctest
-
 import os
 import subprocess
 import tempfile
+import unittest
 
 import mnemonicode
-from mnemonicode._utils import to_base, from_base, chunk_sequence
+from mnemonicode._utils import chunk_sequence, from_base, to_base
 
 
 class TestBaseConversion(unittest.TestCase):

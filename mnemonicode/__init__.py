@@ -1,8 +1,8 @@
-import sys
 import argparse
+import sys
 
+from mnemonicode._utils import chunk_sequence, from_base, to_base
 from mnemonicode._wordlist import index_to_word, word_to_index
-from mnemonicode._utils import to_base, from_base, chunk_sequence
 
 
 def _block_to_indices(block):
